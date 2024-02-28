@@ -103,6 +103,38 @@ export class Puissance_4 {
         }
       }
     }
+
+    // Diagonal /
+    for (let l = 0; l < this.rows; l++) {
+      for (let c = 0; c < this.cols; c++) {
+        if (this.board[c][l] !== 0) {
+          if (
+            this.board[c][l] === this.board[c + 1][l + 1] &&
+            this.board[c + 1][l + 1] === this.board[c + 2][l + 2] &&
+            this.board[c + 2][l + 2] === this.board[c + 3][l + 3]
+          ) {
+            this.set_winner(this.board[c + 2][l + 2]);
+            this.game_over = true;
+          }
+        }
+      }
+    }
+
+    // Diagonal \
+    // for (let l = 0; l < this.rows; l++) {
+    //   for (let c = 0; c < this.cols; c++) {
+    //     if (this.board[c][l] !== 0) {
+    //       if (
+    //         this.board[c][l] === this.board[c + 1][l + 1] &&
+    //         this.board[c + 1][l + 1] === this.board[c + 2][l + 2] &&
+    //         this.board[c + 2][l + 2] === this.board[c + 3][l + 3]
+    //       ) {
+    //         this.set_winner(this.board[c + 2][l + 2]);
+    //         this.game_over = true;
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   set_winner(col) {
