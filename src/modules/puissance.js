@@ -39,8 +39,9 @@ export class Puissance_4 {
           for (let i = 0; i < this.rows; i++) {
             if (this.board[x][i] === 0) {
               this.board[x][i] = this.current_player;
+              //   console.log(this.board);
               let pion = document.getElementById(x + "-" + i);
-              pion.className = "chute";
+              //   pion.className = "chute";
               let coordonner = pion.getAttribute("id");
               if (this.current_player === this.player_1_id) {
                 pion.innerText = coordonner + " " + this.current_player;
@@ -58,6 +59,7 @@ export class Puissance_4 {
               break;
             }
           }
+          this.check_winner();
         });
       }
     }
@@ -65,5 +67,50 @@ export class Puissance_4 {
     h1.innerText = "Au tour de " + this.current_player;
     this.element.innerHTML = "";
     this.element.append(h1, table);
+  }
+  check_winner() {
+    if (this.game_over) {
+      return;
+    }
+    // horizontal
+    for (let l = 0; l < this.rows; l++) {
+      for (let c = 0; c < this.cols; c++) {
+        if (this.board[c][l] !== 0) {
+          if (
+            this.board[c][l] === this.board[c + 1][l] &&
+            this.board[c + 1][l] === this.board[c + 2][l] &&
+            this.board[c + 2][l] === this.board[c + 3][l]
+          ) {
+            this.set_winner(this.board[c + 2][l]);
+            this.game_over = true;
+          }
+        }
+      }
+    }
+
+    // Vertical
+    for (let l = 0; l < this.rows; l++) {
+      for (let c = 0; c < this.cols; c++) {
+        if (this.board[c][l] !== 0) {
+          if (
+            this.board[c][l] === this.board[c][l + 1] &&
+            this.board[c][l + 1] === this.board[c][l + 2] &&
+            this.board[c][l + 2] === this.board[c][l + 3]
+          ) {
+            this.set_winner(this.board[c][l + 2]);
+            this.game_over = true;
+          }
+        }
+      }
+    }
+  }
+
+  set_winner(col) {
+    console.log(col);
+    if (col === this.player_1_id) {
+      alert(this.player_1_id + " win");
+    } else {
+      alert(this.player_2_id + " win");
+    }
   }
 }
