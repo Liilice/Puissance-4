@@ -18,3 +18,16 @@
 #game td.player2 {
   background-color: yellow;
 }
+.chute {
+  animation: chute 2s;
+}
+@keyframes chute {
+  0% {
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

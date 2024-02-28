@@ -40,19 +40,20 @@ export class Puissance_4 {
             if (this.board[x][i] === 0) {
               this.board[x][i] = this.current_player;
               let pion = document.getElementById(x + "-" + i);
+              pion.className = "chute";
               let coordonner = pion.getAttribute("id");
               if (this.current_player === this.player_1_id) {
                 pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_1_color;
                 this.current_player = this.player_2_id;
                 document.querySelector("h1").innerText =
-                  this.current_player + " joue";
+                  "Au tour de " + this.current_player;
               } else {
                 pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_2_color;
                 this.current_player = this.player_1_id;
                 document.querySelector("h1").innerText =
-                  this.current_player + " joue";
+                  "Au tour de " + this.current_player;
               }
               break;
             }
@@ -61,6 +62,7 @@ export class Puissance_4 {
       }
     }
     let h1 = document.createElement("h1");
+    h1.innerText = "Au tour de " + this.current_player;
     this.element.innerHTML = "";
     this.element.append(h1, table);
   }
