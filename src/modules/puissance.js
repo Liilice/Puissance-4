@@ -2,8 +2,8 @@ export class Puissance_4 {
   constructor(elt, options = {}) {
     this.rows = options.rows || 6;
     this.cols = options.cols || 7;
-    this.player_1_id = options.player_name || 1;
-    this.player_2_id = options.player_name || 2;
+    this.player_1_id = options.player_1_name || 1;
+    this.player_2_id = options.player_2_name || 2;
     this.player_1_color = options.player_1_color || "red";
     this.player_2_color = options.player_2_color || "yellow";
     this.board = [];
