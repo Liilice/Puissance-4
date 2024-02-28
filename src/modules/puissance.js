@@ -28,6 +28,7 @@ export class Puissance_4 {
         let elem_td = document.createElement("td");
         elem_td.setAttribute("id", j + "-" + i);
         elem_td.className = "pion";
+        elem_td.innerText = j + "-" + i;
         let td = tr.appendChild(elem_td);
 
         td.addEventListener("click", (event) => {
@@ -39,13 +40,19 @@ export class Puissance_4 {
             if (this.board[x][i] === 0) {
               this.board[x][i] = this.current_player;
               let pion = document.getElementById(x + "-" + i);
+              let coordonner = pion.getAttribute("id");
               if (this.current_player === this.player_1_id) {
-                console.log(this.player_1_color);
+                pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_1_color;
                 this.current_player = this.player_2_id;
+                document.querySelector("h1").innerText =
+                  this.current_player + " joue";
               } else {
+                pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_2_color;
                 this.current_player = this.player_1_id;
+                document.querySelector("h1").innerText =
+                  this.current_player + " joue";
               }
               break;
             }
@@ -53,7 +60,8 @@ export class Puissance_4 {
         });
       }
     }
+    let h1 = document.createElement("h1");
     this.element.innerHTML = "";
-    this.element.appendChild(table);
+    this.element.append(h1, table);
   }
 }
