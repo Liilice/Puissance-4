@@ -28,28 +28,28 @@ export class Puissance_4 {
         let elem_td = document.createElement("td");
         elem_td.setAttribute("id", j + "-" + i);
         elem_td.className = "pion";
-        elem_td.innerText = j + "-" + i;
+        // elem_td.innerText = j + "-" + i;
         let td = tr.appendChild(elem_td);
 
         td.addEventListener("click", (event) => {
           let cell = event.target.getAttribute("id").split("-");
           let x = parseInt(cell[0]);
-          let y = parseInt(cell[1]);
+          //   let y = parseInt(cell[1]);
 
           for (let i = 0; i < this.rows; i++) {
             if (this.board[x][i] === 0) {
               this.board[x][i] = this.current_player;
               let pion = document.getElementById(x + "-" + i);
-              //   pion.className = "chute";
-              let coordonner = pion.getAttribute("id");
+              pion.className = "chute";
+              //   let coordonner = pion.getAttribute("id");
               if (this.current_player === this.player_1_id) {
-                pion.innerText = coordonner + " " + this.current_player;
+                // pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_1_color;
                 this.current_player = this.player_2_id;
                 document.querySelector("h1").innerText =
                   "Au tour de " + this.current_player;
               } else {
-                pion.innerText = coordonner + " " + this.current_player;
+                // pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_2_color;
                 this.current_player = this.player_1_id;
                 document.querySelector("h1").innerText =
@@ -76,23 +76,22 @@ export class Puissance_4 {
     for (let c = 0; c < this.cols; c++) {
       for (let l = 0; l < this.rows; l++) {
         if (this.board[c][l] !== 0) {
-          //   console.log(this.board);
           if (
             c !== this.cols - 1 &&
             this.board[c][l] === this.board[c + 1][l + 1] &&
             this.board[c + 1][l + 1] === this.board[c + 2][l + 2] &&
             this.board[c + 2][l + 2] === this.board[c + 3][l + 3]
           ) {
-            this.set_winner(c, l);
             this.game_over = true;
+            this.set_winner(c, l);
           } else if (c == this.cols - 1 && l > 3) {
             if (
               this.board[c][l] === this.board[c - 1][l - 1] &&
               this.board[c - 1][l - 1] === this.board[c - 2][l - 2] &&
               this.board[c - 2][l - 2] === this.board[c - 3][l - 3]
             ) {
-              this.set_winner(c, l);
               this.game_over = true;
+              this.set_winner(c, l);
             }
           }
         }
@@ -109,16 +108,16 @@ export class Puissance_4 {
             this.board[c - 1][l] === this.board[c - 2][l] &&
             this.board[c - 2][l] === this.board[c - 3][l]
           ) {
-            this.set_winner(c, l);
             this.game_over = true;
+            this.set_winner(c, l);
           } else if (
             c !== this.cols - 1 &&
             this.board[c][l] === this.board[c + 1][l] &&
             this.board[c + 1][l] === this.board[c + 2][l] &&
             this.board[c + 2][l] === this.board[c + 3][l]
           ) {
-            this.set_winner(c, l);
             this.game_over = true;
+            this.set_winner(c, l);
           }
         }
       }
@@ -135,16 +134,16 @@ export class Puissance_4 {
             this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
             this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
           ) {
-            this.set_winner(c, l);
             this.game_over = true;
+            this.set_winner(c, l);
           } else if (
             c == this.cols - 1 &&
             this.board[c][l] === this.board[c - 1][l + 1] &&
             this.board[c - 1][l + 1] === this.board[c - 2][l + 2] &&
             this.board[c - 2][l + 2] === this.board[c - 3][l + 3]
           ) {
-            this.set_winner(c, l);
             this.game_over = true;
+            this.set_winner(c, l);
           } else if (
             c != 0 &&
             c != this.cols - 1 &&
@@ -152,8 +151,8 @@ export class Puissance_4 {
             this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
             this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
           ) {
-            this.set_winner(c, l);
             this.game_over = true;
+            this.set_winner(c, l);
           }
         }
       }
@@ -174,6 +173,8 @@ export class Puissance_4 {
         }
       }
     }
+
+    return this.game_over;
   }
 
   set_winner(c, l) {
