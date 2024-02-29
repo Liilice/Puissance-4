@@ -74,6 +74,34 @@ export class Puissance_4 {
     if (this.game_over) {
       return this.game_over;
     }
+
+    // Diagonal /
+    for (let c = 0; c < this.cols; c++) {
+      for (let l = 0; l < this.rows; l++) {
+        if (this.board[c][l] !== 0) {
+          console.log(this.board);
+          if (
+            c !== this.cols - 1 &&
+            this.board[c][l] === this.board[c + 1][l + 1] &&
+            this.board[c + 1][l + 1] === this.board[c + 2][l + 2] &&
+            this.board[c + 2][l + 2] === this.board[c + 3][l + 3]
+          ) {
+            this.set_winner(c, l);
+            this.game_over = true;
+          } else if (c == this.cols - 1 && l > 3) {
+            if (
+              this.board[c][l] === this.board[c - 1][l - 1] &&
+              this.board[c - 1][l - 1] === this.board[c - 2][l - 2] &&
+              this.board[c - 2][l - 2] === this.board[c - 3][l - 3]
+            ) {
+              this.set_winner(c, l);
+              this.game_over = true;
+            }
+          }
+        }
+      }
+    }
+
     // horizontal
     for (let c = 0; c < this.cols; c++) {
       for (let l = 0; l < this.rows; l++) {
@@ -114,46 +142,6 @@ export class Puissance_4 {
         }
       }
     }
-    // for (let c = 0; c < this.cols; c++) {
-    //   for (let l = 0; l < this.rows; l++) {
-    //     if (this.board[c][l] !== 0) {
-    //       if (
-    //         c == this.cols - 1 &&
-    //         this.board[c][l] === this.board[c - 1][l] &&
-    //         this.board[c - 1][l] === this.board[c - 2][l] &&
-    //         this.board[c - 2][l] === this.board[c - 3][l]
-    //       ) {
-    //         this.set_winner(c, l);
-    //         this.game_over = true;
-    //       } else if (
-    //         c !== this.cols - 1 &&
-    //         this.board[c][l] === this.board[c + 1][l] &&
-    //         this.board[c + 1][l] === this.board[c + 2][l] &&
-    //         this.board[c + 2][l] === this.board[c + 3][l]
-    //       ) {
-    //         this.set_winner(c, l);
-    //         this.game_over = true;
-    //       }
-    //     }
-    //   }
-    // }
-
-    // // Diagonal /
-    // for (let c = 0; c < this.cols; c++) {
-    //   for (let l = 0; l < this.rows; l++) {
-    //     if (this.board[c][l] !== 0) {
-    //       //   console.log(this.board);
-    //       if (
-    //         this.board[c][l] === this.board[c + 1][l + 1] &&
-    //         this.board[c + 1][l + 1] === this.board[c + 2][l + 2] &&
-    //         this.board[c + 2][l + 2] === this.board[c + 3][l + 3]
-    //       ) {
-    //         this.set_winner(this.board[c + 2][l + 2]);
-    //         this.game_over = true;
-    //       }
-    //     }
-    //   }
-    // }
 
     // // Diagonal \
     // for (let c = 0; c < this.cols; c++) {
