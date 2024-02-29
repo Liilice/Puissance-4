@@ -37,6 +37,8 @@ export class Puissance_4 {
           let y = parseInt(cell[1]);
 
           for (let i = 0; i < this.rows; i++) {
+            // while()
+            // console.log(this.check_winner());
             if (this.board[x][i] === 0) {
               this.board[x][i] = this.current_player;
               //   console.log(this.board);
@@ -70,7 +72,7 @@ export class Puissance_4 {
   }
   check_winner() {
     if (this.game_over) {
-      return;
+      return this.game_over;
     }
     // horizontal
     for (let c = 0; c < this.cols; c++) {
@@ -98,20 +100,20 @@ export class Puissance_4 {
     }
 
     // Vertical;
-    // for (let c = 0; c < this.cols; c++) {
-    //   for (let l = 0; l < this.rows - (this.rows - 4); l++) {
-    //     if (this.board[c][l] !== 0) {
-    //       if (
-    //         this.board[c][l] === this.board[c][l + 1] &&
-    //         this.board[c][l + 1] === this.board[c][l + 2] &&
-    //         this.board[c][l + 2] === this.board[c][l + 3]
-    //       ) {
-    //         this.set_winner(c, l);
-    //         // this.game_over = true;
-    //       }
-    //     }
-    //   }
-    // }
+    for (let c = 0; c < this.cols; c++) {
+      for (let l = 0; l < this.rows; l++) {
+        if (this.board[c][l] !== 0) {
+          if (
+            this.board[c][l] === this.board[c][l + 1] &&
+            this.board[c][l + 1] === this.board[c][l + 2] &&
+            this.board[c][l + 2] === this.board[c][l + 3]
+          ) {
+            this.set_winner(c, l);
+            this.game_over = true;
+          }
+        }
+      }
+    }
     // for (let c = 0; c < this.cols; c++) {
     //   for (let l = 0; l < this.rows; l++) {
     //     if (this.board[c][l] !== 0) {
