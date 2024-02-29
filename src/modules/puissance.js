@@ -37,11 +37,8 @@ export class Puissance_4 {
           let y = parseInt(cell[1]);
 
           for (let i = 0; i < this.rows; i++) {
-            // while()
-            // console.log(this.check_winner());
             if (this.board[x][i] === 0) {
               this.board[x][i] = this.current_player;
-              //   console.log(this.board);
               let pion = document.getElementById(x + "-" + i);
               //   pion.className = "chute";
               let coordonner = pion.getAttribute("id");
@@ -79,7 +76,7 @@ export class Puissance_4 {
     for (let c = 0; c < this.cols; c++) {
       for (let l = 0; l < this.rows; l++) {
         if (this.board[c][l] !== 0) {
-          console.log(this.board);
+          //   console.log(this.board);
           if (
             c !== this.cols - 1 &&
             this.board[c][l] === this.board[c + 1][l + 1] &&
@@ -97,6 +94,32 @@ export class Puissance_4 {
               this.set_winner(c, l);
               this.game_over = true;
             }
+          }
+        }
+      }
+    }
+
+    // Diagonal \
+    for (let c = 0; c < this.cols; c++) {
+      for (let l = 0; l < this.rows; l++) {
+        if (this.board[c][l] !== 0) {
+          if (
+            c == 0 &&
+            l > 2 &&
+            this.board[c][l] === this.board[c + 1][l - 1] &&
+            this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
+            this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
+          ) {
+            this.set_winner(c, l);
+            this.game_over = true;
+          } else if (
+            c != 0 &&
+            this.board[c][l] === this.board[c + 1][l - 1] &&
+            this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
+            this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
+          ) {
+            this.set_winner(c, l);
+            this.game_over = true;
           }
         }
       }
@@ -142,22 +165,6 @@ export class Puissance_4 {
         }
       }
     }
-
-    // // Diagonal \
-    // for (let c = 0; c < this.cols; c++) {
-    //   for (let l = 0; l < this.rows; l++) {
-    //     if (this.board[c][l] !== 0) {
-    //       if (
-    //         this.board[c][l] === this.board[c - 1][l + 1] &&
-    //         this.board[c - 1][l + 1] === this.board[c + 2][l + 2] &&
-    //         this.board[c + 2][l + 2] === this.board[c + 3][l + 3]
-    //       ) {
-    //         this.set_winner(this.board[c + 2][l + 2]);
-    //         this.game_over = true;
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   set_winner(c, l) {
