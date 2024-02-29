@@ -99,32 +99,6 @@ export class Puissance_4 {
       }
     }
 
-    // Diagonal \
-    for (let c = 0; c < this.cols; c++) {
-      for (let l = 0; l < this.rows; l++) {
-        if (this.board[c][l] !== 0) {
-          if (
-            c == 0 &&
-            l > 2 &&
-            this.board[c][l] === this.board[c + 1][l - 1] &&
-            this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
-            this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
-          ) {
-            this.set_winner(c, l);
-            this.game_over = true;
-          } else if (
-            c != 0 &&
-            this.board[c][l] === this.board[c + 1][l - 1] &&
-            this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
-            this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
-          ) {
-            this.set_winner(c, l);
-            this.game_over = true;
-          }
-        }
-      }
-    }
-
     // horizontal
     for (let c = 0; c < this.cols; c++) {
       for (let l = 0; l < this.rows; l++) {
@@ -142,6 +116,41 @@ export class Puissance_4 {
             this.board[c][l] === this.board[c + 1][l] &&
             this.board[c + 1][l] === this.board[c + 2][l] &&
             this.board[c + 2][l] === this.board[c + 3][l]
+          ) {
+            this.set_winner(c, l);
+            this.game_over = true;
+          }
+        }
+      }
+    }
+
+    // Diagonal \
+    for (let c = 0; c < this.cols; c++) {
+      for (let l = 0; l < this.rows; l++) {
+        if (this.board[c][l] !== 0) {
+          if (
+            c == 0 &&
+            l > 2 &&
+            this.board[c][l] === this.board[c + 1][l - 1] &&
+            this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
+            this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
+          ) {
+            this.set_winner(c, l);
+            this.game_over = true;
+          } else if (
+            c == this.cols - 1 &&
+            this.board[c][l] === this.board[c - 1][l + 1] &&
+            this.board[c - 1][l + 1] === this.board[c - 2][l + 2] &&
+            this.board[c - 2][l + 2] === this.board[c - 3][l + 3]
+          ) {
+            this.set_winner(c, l);
+            this.game_over = true;
+          } else if (
+            c != 0 &&
+            c != this.cols - 1 &&
+            this.board[c][l] === this.board[c + 1][l - 1] &&
+            this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
+            this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
           ) {
             this.set_winner(c, l);
             this.game_over = true;
