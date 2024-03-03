@@ -18,10 +18,10 @@ export class Puissance_4 {
     this.game_over = false;
     this.element = elt;
     this.winner = null;
+    this.move_history = [];
     this.render();
-    // this.create_board();
   }
-  // create_board() {}
+
   render() {
     let table = document.createElement("table");
     for (let i = this.rows - 1; i >= 0; i--) {
@@ -43,6 +43,8 @@ export class Puissance_4 {
               this.board[x][i] = this.current_player;
               let pion = document.getElementById(x + "-" + i);
               pion.className = "chute";
+
+              this.move_history.push({ x, i });
               //   let coordonner = pion.getAttribute("id");
               if (this.current_player === this.player_1_id) {
                 // pion.innerText = coordonner + " " + this.current_player;
@@ -67,8 +69,36 @@ export class Puissance_4 {
     }
     let h1 = document.createElement("h1");
     h1.innerText = "Au tour de " + this.current_player;
+    let button = document.createElement("button");
+    button.className = "cancel";
+    button.innerText = "annuler son dernier coup";
     this.element.innerHTML = "";
-    this.element.append(h1, table);
+    this.element.append(h1, table, button);
+
+    button.addEventListener("click", () => {
+      if (this.move_history.length === 0) {
+        return;
+      }
+      let last_cell = this.move_history.pop();
+      let arr_last_cell = Object.values(last_cell);
+      this.board[arr_last_cell[0]][arr_last_cell[1]] = 0;
+      if (this.board[arr_last_cell[0]][arr_last_cell[1]] === 0) {
+        let pion = document.getElementById(
+          arr_last_cell[0] + "-" + [arr_last_cell[1]]
+        );
+        pion.removeAttribute("style");
+        pion.removeAttribute("class");
+        if (this.current_player === this.player_1_id) {
+          this.current_player = this.player_2_id;
+          document.querySelector("h1").innerText =
+            "Au tour de " + this.current_player;
+        } else {
+          this.current_player = this.player_2_id;
+          document.querySelector("h1").innerText =
+            "Au tour de " + this.current_player;
+        }
+      }
+    });
   }
 
   check_coup() {
@@ -86,7 +116,6 @@ export class Puissance_4 {
     if (this.game_over) {
       return this.game_over;
     }
-    console.log(this.board);
     // Diagonal /
     for (let c = 0; c < this.cols; c++) {
       for (let l = 0; l < this.rows; l++) {
@@ -215,7 +244,7 @@ export class Puissance_4 {
       }
     }
     let p = document.createElement("p");
-    p.innerText =
+    document.querySelector("p").innerText =
       "SCORE " +
       this.player_1_id +
       " " +
@@ -225,6 +254,7 @@ export class Puissance_4 {
       " " +
       score_player_2_id;
 
+    // this.element.append(p);
     this.board = [];
     for (let i = 0; i < this.cols; i++) {
       let column = [];
