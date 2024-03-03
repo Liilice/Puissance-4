@@ -32,13 +32,11 @@ export class Puissance_4 {
         let elem_td = document.createElement("td");
         elem_td.setAttribute("id", j + "-" + i);
         elem_td.className = "pion";
-        // elem_td.innerText = j + "-" + i;
         let td = tr.appendChild(elem_td);
 
         td.addEventListener("click", (event) => {
           let cell = event.target.getAttribute("id").split("-");
           let x = parseInt(cell[0]);
-          //   let y = parseInt(cell[1]);
 
           for (let i = 0; i < this.rows; i++) {
             if (this.board[x][i] === 0) {
@@ -47,15 +45,12 @@ export class Puissance_4 {
               pion.className = "chute";
 
               this.move_history.push({ x, i });
-              //   let coordonner = pion.getAttribute("id");
               if (this.current_player === this.player_1_id) {
-                // pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_1_color;
                 this.current_player = this.player_2_id;
                 document.querySelector("h1").innerText =
                   "Au tour de " + this.current_player;
               } else {
-                // pion.innerText = coordonner + " " + this.current_player;
                 pion.style.backgroundColor = this.player_2_color;
                 this.current_player = this.player_1_id;
                 document.querySelector("h1").innerText =
@@ -102,7 +97,7 @@ export class Puissance_4 {
     this.element.innerHTML = "";
     this.element.append(div, table);
 
-    document.querySelector(".cancel").addEventListener("click", () => {
+    button.addEventListener("click", () => {
       if (this.move_history.length === 0) {
         return;
       }
@@ -116,12 +111,14 @@ export class Puissance_4 {
         );
         pion.removeAttribute("style");
         pion.removeAttribute("class");
+        console.log(this.current_player);
         if (this.current_player === this.player_1_id) {
           this.current_player = this.player_2_id;
+          console.log(this.current_player);
           document.querySelector("h1").innerText =
             "Au tour de " + this.current_player;
         } else {
-          this.current_player = this.player_2_id;
+          this.current_player = this.player_1_id;
           document.querySelector("h1").innerText =
             "Au tour de " + this.current_player;
         }
@@ -144,7 +141,6 @@ export class Puissance_4 {
 
   check_winner() {
     if (this.game_over) {
-      console.log("dgvdxv");
       return this.game_over;
     }
     // Diagonal /
@@ -183,7 +179,6 @@ export class Puissance_4 {
             this.board[c - 1][l] === this.board[c - 2][l] &&
             this.board[c - 2][l] === this.board[c - 3][l]
           ) {
-            // this.game_over = true;
             this.set_winner(c, l);
           } else if (
             c !== this.cols - 1 &&
@@ -191,7 +186,6 @@ export class Puissance_4 {
             this.board[c + 1][l] === this.board[c + 2][l] &&
             this.board[c + 2][l] === this.board[c + 3][l]
           ) {
-            // this.game_over = true;
             this.set_winner(c, l);
           }
         }
@@ -209,7 +203,6 @@ export class Puissance_4 {
             this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
             this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
           ) {
-            // this.game_over = true;
             this.set_winner(c, l);
           } else if (
             c == this.cols - 1 &&
@@ -217,7 +210,6 @@ export class Puissance_4 {
             this.board[c - 1][l + 1] === this.board[c - 2][l + 2] &&
             this.board[c - 2][l + 2] === this.board[c - 3][l + 3]
           ) {
-            // this.game_over = true;
             this.set_winner(c, l);
           } else if (
             c != 0 &&
@@ -226,7 +218,6 @@ export class Puissance_4 {
             this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
             this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
           ) {
-            // this.game_over = true;
             this.set_winner(c, l);
           }
         }
@@ -243,7 +234,6 @@ export class Puissance_4 {
             this.board[c][l + 2] === this.board[c][l + 3]
           ) {
             this.set_winner(c, l);
-            // this.game_over = true;
           }
         }
       }
