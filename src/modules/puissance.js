@@ -80,6 +80,7 @@ export class Puissance_4 {
         return;
       }
       let last_cell = this.move_history.pop();
+      console.log(last_cell);
       let arr_last_cell = Object.values(last_cell);
       this.board[arr_last_cell[0]][arr_last_cell[1]] = 0;
       if (this.board[arr_last_cell[0]][arr_last_cell[1]] === 0) {
@@ -114,6 +115,7 @@ export class Puissance_4 {
 
   check_winner() {
     if (this.game_over) {
+      console.log("dgvdxv");
       return this.game_over;
     }
     // Diagonal /
@@ -126,7 +128,7 @@ export class Puissance_4 {
             this.board[c + 1][l + 1] === this.board[c + 2][l + 2] &&
             this.board[c + 2][l + 2] === this.board[c + 3][l + 3]
           ) {
-            this.game_over = true;
+            // this.game_over = true;
             this.set_winner(c, l);
           } else if (c == this.cols - 1 && l > 3) {
             if (
@@ -134,7 +136,7 @@ export class Puissance_4 {
               this.board[c - 1][l - 1] === this.board[c - 2][l - 2] &&
               this.board[c - 2][l - 2] === this.board[c - 3][l - 3]
             ) {
-              this.game_over = true;
+              // this.game_over = true;
               this.set_winner(c, l);
             }
           }
@@ -152,7 +154,7 @@ export class Puissance_4 {
             this.board[c - 1][l] === this.board[c - 2][l] &&
             this.board[c - 2][l] === this.board[c - 3][l]
           ) {
-            this.game_over = true;
+            // this.game_over = true;
             this.set_winner(c, l);
           } else if (
             c !== this.cols - 1 &&
@@ -160,7 +162,7 @@ export class Puissance_4 {
             this.board[c + 1][l] === this.board[c + 2][l] &&
             this.board[c + 2][l] === this.board[c + 3][l]
           ) {
-            this.game_over = true;
+            // this.game_over = true;
             this.set_winner(c, l);
           }
         }
@@ -178,7 +180,7 @@ export class Puissance_4 {
             this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
             this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
           ) {
-            this.game_over = true;
+            // this.game_over = true;
             this.set_winner(c, l);
           } else if (
             c == this.cols - 1 &&
@@ -186,7 +188,7 @@ export class Puissance_4 {
             this.board[c - 1][l + 1] === this.board[c - 2][l + 2] &&
             this.board[c - 2][l + 2] === this.board[c - 3][l + 3]
           ) {
-            this.game_over = true;
+            // this.game_over = true;
             this.set_winner(c, l);
           } else if (
             c != 0 &&
@@ -195,7 +197,7 @@ export class Puissance_4 {
             this.board[c + 1][l - 1] === this.board[c + 2][l - 2] &&
             this.board[c + 2][l - 2] === this.board[c + 3][l - 3]
           ) {
-            this.game_over = true;
+            // this.game_over = true;
             this.set_winner(c, l);
           }
         }
@@ -212,7 +214,7 @@ export class Puissance_4 {
             this.board[c][l + 2] === this.board[c][l + 3]
           ) {
             this.set_winner(c, l);
-            this.game_over = true;
+            // this.game_over = true;
           }
         }
       }
@@ -243,16 +245,16 @@ export class Puissance_4 {
         score_player_2_id = score_player_2_id + 1;
       }
     }
-    let p = document.createElement("p");
-    document.querySelector("p").innerText =
-      "SCORE " +
-      this.player_1_id +
-      " " +
-      score_player_1_id +
-      " vs " +
-      this.player_2_id +
-      " " +
-      score_player_2_id;
+    // let p = document.createElement("p");
+    // document.querySelector("p").innerText =
+    //   "SCORE " +
+    //   this.player_1_id +
+    //   " " +
+    //   score_player_1_id +
+    //   " vs " +
+    //   this.player_2_id +
+    //   " " +
+    //   score_player_2_id;
 
     // this.element.append(p);
     this.board = [];
@@ -264,9 +266,6 @@ export class Puissance_4 {
       this.board.push(column);
     }
     this.winner = null;
-    this.game_over = false;
-    // console.log(this.board);
-    // console.log(this.element);
     this.render();
   }
 }
