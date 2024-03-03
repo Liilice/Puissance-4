@@ -70,13 +70,14 @@ export class Puissance_4 {
       }
     }
     let p = document.createElement("p");
-    console.log(this.winner);
     if (this.winner) {
       console.log("dans if");
       if (this.winner === this.player_1_id) {
         this.score_player_1_id += 1;
-      } else {
+      } else if (this.winner === this.player_2_id) {
         this.score_player_2_id += 1;
+      } else {
+        return;
       }
     }
     p.innerText =
@@ -93,13 +94,10 @@ export class Puissance_4 {
     let button = document.createElement("button");
     button.className = "cancel";
     button.innerText = "annuler son dernier coup";
-    let button_reset = document.createElement("button");
-    button_reset.className = "reset";
-    button_reset.innerText = "Rejouer";
 
     let div = document.createElement("div");
     div.className = "container_affichage";
-    div.append(p, h1, button, button_reset);
+    div.append(p, h1, button);
 
     this.element.innerHTML = "";
     this.element.append(div, table);
@@ -140,6 +138,8 @@ export class Puissance_4 {
       }
     }
     alert("plus d'emplacement possible");
+    this.winner = null;
+    this.reset();
   }
 
   check_winner() {
