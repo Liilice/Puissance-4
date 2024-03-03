@@ -19,7 +19,7 @@
   background-color: yellow;
 }
 .chute {
-  animation: chute 2s;
+  animation: chute 1s;
 }
 @keyframes chute {
   0% {

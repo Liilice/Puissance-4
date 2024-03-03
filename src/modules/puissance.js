@@ -17,9 +17,11 @@ export class Puissance_4 {
     this.current_player = this.player_1_id;
     this.game_over = false;
     this.element = elt;
+    this.winner = null;
     this.render();
+    // this.create_board();
   }
-
+  // create_board() {}
   render() {
     let table = document.createElement("table");
     for (let i = this.rows - 1; i >= 0; i--) {
@@ -58,6 +60,7 @@ export class Puissance_4 {
               break;
             }
           }
+          this.check_coup();
           this.check_winner();
         });
       }
@@ -67,11 +70,23 @@ export class Puissance_4 {
     this.element.innerHTML = "";
     this.element.append(h1, table);
   }
+
+  check_coup() {
+    for (let i = 0; i < this.cols; i++) {
+      for (let j = 0; j < this.rows; j++) {
+        if (this.board[i][j] === 0) {
+          return false;
+        }
+      }
+    }
+    alert("plus d'emplacement possible");
+  }
+
   check_winner() {
     if (this.game_over) {
       return this.game_over;
     }
-
+    console.log(this.board);
     // Diagonal /
     for (let c = 0; c < this.cols; c++) {
       for (let l = 0; l < this.rows; l++) {
@@ -180,8 +195,48 @@ export class Puissance_4 {
   set_winner(c, l) {
     if (this.board[c][l] === this.player_1_id) {
       alert(this.player_1_id + " win");
+      this.winner = this.player_1_id;
+      this.reset();
     } else {
       alert(this.player_2_id + " win");
+      this.winner = this.player_2_id;
+      this.reset();
     }
+  }
+
+  reset() {
+    let score_player_1_id = 0;
+    let score_player_2_id = 0;
+    if (this.winner) {
+      if (this.winner === this.player_1_id) {
+        score_player_1_id = score_player_1_id + 1;
+      } else {
+        score_player_2_id = score_player_2_id + 1;
+      }
+    }
+    let p = document.createElement("p");
+    p.innerText =
+      "SCORE " +
+      this.player_1_id +
+      " " +
+      score_player_1_id +
+      " vs " +
+      this.player_2_id +
+      " " +
+      score_player_2_id;
+
+    this.board = [];
+    for (let i = 0; i < this.cols; i++) {
+      let column = [];
+      for (let j = 0; j < this.rows; j++) {
+        column.push(0);
+      }
+      this.board.push(column);
+    }
+    this.winner = null;
+    this.game_over = false;
+    // console.log(this.board);
+    // console.log(this.element);
+    this.render();
   }
 }
