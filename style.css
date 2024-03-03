@@ -31,3 +31,12 @@
     opacity: 1;
   }
 }
+.container_affichage {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+  width: 20rem;
+}
+#game {
+  display: flex;
+}

@@ -4,6 +4,8 @@ export class Puissance_4 {
     this.cols = options.cols || 7;
     this.player_1_id = options.player_1_name || 1;
     this.player_2_id = options.player_2_name || 2;
+    this.score_player_1_id = 0;
+    this.score_player_2_id = 0;
     this.player_1_color = options.player_1_color || "red";
     this.player_2_color = options.player_2_color || "yellow";
     this.board = [];
@@ -67,15 +69,42 @@ export class Puissance_4 {
         });
       }
     }
+    let p = document.createElement("p");
+    console.log(this.winner);
+    if (this.winner) {
+      console.log("dans if");
+      if (this.winner === this.player_1_id) {
+        this.score_player_1_id += 1;
+      } else {
+        this.score_player_2_id += 1;
+      }
+    }
+    p.innerText =
+      "SCORE " +
+      this.player_1_id +
+      " " +
+      this.score_player_1_id +
+      " vs " +
+      this.player_2_id +
+      " " +
+      this.score_player_2_id;
     let h1 = document.createElement("h1");
     h1.innerText = "Au tour de " + this.current_player;
     let button = document.createElement("button");
     button.className = "cancel";
     button.innerText = "annuler son dernier coup";
-    this.element.innerHTML = "";
-    this.element.append(h1, table, button);
+    let button_reset = document.createElement("button");
+    button_reset.className = "reset";
+    button_reset.innerText = "Rejouer";
 
-    button.addEventListener("click", () => {
+    let div = document.createElement("div");
+    div.className = "container_affichage";
+    div.append(p, h1, button, button_reset);
+
+    this.element.innerHTML = "";
+    this.element.append(div, table);
+
+    document.querySelector(".cancel").addEventListener("click", () => {
       if (this.move_history.length === 0) {
         return;
       }
@@ -219,7 +248,6 @@ export class Puissance_4 {
         }
       }
     }
-
     return this.game_over;
   }
 
@@ -236,27 +264,6 @@ export class Puissance_4 {
   }
 
   reset() {
-    let score_player_1_id = 0;
-    let score_player_2_id = 0;
-    if (this.winner) {
-      if (this.winner === this.player_1_id) {
-        score_player_1_id = score_player_1_id + 1;
-      } else {
-        score_player_2_id = score_player_2_id + 1;
-      }
-    }
-    // let p = document.createElement("p");
-    // document.querySelector("p").innerText =
-    //   "SCORE " +
-    //   this.player_1_id +
-    //   " " +
-    //   score_player_1_id +
-    //   " vs " +
-    //   this.player_2_id +
-    //   " " +
-    //   score_player_2_id;
-
-    // this.element.append(p);
     this.board = [];
     for (let i = 0; i < this.cols; i++) {
       let column = [];
@@ -265,7 +272,13 @@ export class Puissance_4 {
       }
       this.board.push(column);
     }
-    this.winner = null;
+    if (this.winner) {
+      if (this.winner === this.player_1_id) {
+        this.winner = this.player_1_id;
+      } else {
+        this.winner = this.player_2_id;
+      }
+    }
     this.render();
   }
 }
