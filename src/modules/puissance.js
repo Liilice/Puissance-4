@@ -22,6 +22,7 @@ export class Puissance_4 {
     this.winner = null;
     this.move_history = [];
     this.render();
+    this.CSS();
   }
 
   render() {
@@ -31,7 +32,6 @@ export class Puissance_4 {
       for (let j = 0; j < this.cols; j++) {
         let elem_td = document.createElement("td");
         elem_td.setAttribute("id", j + "-" + i);
-        elem_td.className = "pion";
         let td = tr.appendChild(elem_td);
 
         td.addEventListener("click", (event) => {
@@ -66,7 +66,6 @@ export class Puissance_4 {
     }
     let p = document.createElement("p");
     if (this.winner) {
-      console.log("dans if");
       if (this.winner === this.player_1_id) {
         this.score_player_1_id += 1;
       } else if (this.winner === this.player_2_id) {
@@ -87,7 +86,6 @@ export class Puissance_4 {
     let h1 = document.createElement("h1");
     h1.innerText = "Au tour de " + this.current_player;
     let button = document.createElement("button");
-    button.className = "cancel";
     button.innerText = "annuler son dernier coup";
 
     let div = document.createElement("div");
@@ -102,7 +100,6 @@ export class Puissance_4 {
         return;
       }
       let last_cell = this.move_history.pop();
-      console.log(last_cell);
       let arr_last_cell = Object.values(last_cell);
       this.board[arr_last_cell[0]][arr_last_cell[1]] = 0;
       if (this.board[arr_last_cell[0]][arr_last_cell[1]] === 0) {
@@ -111,10 +108,8 @@ export class Puissance_4 {
         );
         pion.removeAttribute("style");
         pion.removeAttribute("class");
-        console.log(this.current_player);
         if (this.current_player === this.player_1_id) {
           this.current_player = this.player_2_id;
-          console.log(this.current_player);
           document.querySelector("h1").innerText =
             "Au tour de " + this.current_player;
         } else {
@@ -124,6 +119,65 @@ export class Puissance_4 {
         }
       }
     });
+  }
+
+  CSS() {
+    let style = document.createElement("style");
+    document.body.appendChild(style);
+    style.innerHTML = ` 
+    #game table {
+      border: 3px blue outset;
+      background-color: blue;
+    }
+    #game td {
+      width: 2cm;
+      height: 2cm;
+      margin: 0px;
+      padding: 0px;
+      border: 2px blue inset;
+      border-radius: 2cm;
+      background-color: white;
+      cursor: pointer;
+    }
+    #game td.player1 {
+      background-color: red;
+    }
+    #game td.player2 {
+      background-color: yellow;
+    }
+    .chute {
+      animation: chute 1s;
+    }
+    @keyframes chute {
+      0% {
+        transform: translateY(-500px);
+        opacity: 0.1;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .container_affichage {
+      display: flex;
+      flex-direction: column;
+      margin-right: 1rem;
+      width: 20rem;
+    }
+    #game {
+      display: flex;
+    }
+    .div_modal {
+      position: fixed;
+      top: 0px;
+      display: none;
+      width: 50rem;
+      height: 25rem;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    `;
   }
 
   check_coup() {
